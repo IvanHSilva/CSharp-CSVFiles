@@ -9,16 +9,17 @@ namespace CSVFiles.Entities {
     public class Product {
         // Attributes
         public string Name { get; set; }
-        public int Quantity { get; set; }
         public double Price { get; set; }
-
+        
+        public int Quantity { get; set; }
+        
         // Constructors
         public Product() {}
 
-        public Product(string name, int quantity, double price) {
+        public Product(string name, double price, int quantity) {
             Name = name;
-            Quantity = quantity;
             Price = price;
+            Quantity = quantity;
         }
 
         // Methods
