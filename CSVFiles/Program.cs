@@ -18,14 +18,30 @@ namespace CSVFiles {
 
             // Create Entry CSV File
             string path = "E:\\Dev-Files\\C#";
-            String sourceFile = $"{path}\\Products.csv";
+            string sourceFile = $"{path}\\Products.csv";
             using (StreamWriter sw = new StreamWriter(sourceFile)) {
                 foreach (Product prod in products) {
                     sw.WriteLine(prod.ProductTag(false));
                 }
             }
 
+            // Remove products
+            products.RemoveAll(x => x.Name != null);
+
             // Create Exit CSV File Updated
+            string targetFile = $"{path}\\ProductsSum.csv";
+            using (StreamReader sr = new StreamReader(sourceFile)) {
+                while (!sr.EndOfStream) {
+                    string line = sr.ReadLine();
+                    string[] vect = line.Split(';');
+                    products.Add(new Product(vect[0], double.Parse(vect[1], CultureInfo.InvariantCulture), int.Parse(vect[2])));
+                }
+            }
+            using (StreamWriter sw = new StreamWriter(targetFile)) {
+                foreach (Product prod in products) {
+                    sw.WriteLine(prod.ProductTag(true));
+                }
+            }
         }
     }
 }
